@@ -1,4 +1,11 @@
-﻿addEvent ( "Logowanie:rozpocznij", true )
+﻿--[[
+$ author Shuffle
+$ copyright Shuffle
+$ link https://github.com/ShuffleGTAO/FreeStyle
+]]--
+
+
+addEvent ( "Logowanie:rozpocznij", true )
 addEventHandler ( "Logowanie:rozpocznij", root, function ( login, haslo )
 	local q = exports["fr-db"]:wykonajKwerende ( "SELECT * FROM FR_Accounts WHERE Login = ?", login )
 	if #q == 0 then

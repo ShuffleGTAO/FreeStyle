@@ -1,4 +1,10 @@
-﻿local dbname = "x"
+﻿--[[
+$ author Shuffle
+$ copyright Shuffle
+$ link https://github.com/ShuffleGTAO/FreeStyle
+]]--
+
+local dbname = "x"
 local host = "x"
 local username = "x"
 local pass = "x"
