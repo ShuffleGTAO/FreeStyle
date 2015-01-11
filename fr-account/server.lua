@@ -24,7 +24,11 @@ addEventHandler ( "Logowanie:rozpocznij", root, function ( login, haslo )
 		setTimer ( setPlayerMoney, 2000, 1, source, v.portfel )
 		setTimer ( setElementModel, 2000, 1, source, v.skin )
 		setTimer ( setElementHealth, 2000, 1, source, v.hp )
-		setElementData ( source, "PrawoJazdy", v.prawo_jazdy )
+		if v["prawo_jazdy"] == "true" then
+			setElementData ( source, "PrawoJazdy", true )
+		elseif v["prawo_jazdy"] == "false" then
+			setElementData ( source, "PrawoJazdy", false )
+		end
 	end
 	for i = 0, 10 do
 		outputChatBox ( " ", source )
