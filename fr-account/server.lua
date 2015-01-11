@@ -24,6 +24,7 @@ addEventHandler ( "Logowanie:rozpocznij", root, function ( login, haslo )
 		setTimer ( setPlayerMoney, 2000, 1, source, v.portfel )
 		setTimer ( setElementModel, 2000, 1, source, v.skin )
 		setTimer ( setElementHealth, 2000, 1, source, v.hp )
+		setElementData ( source, "PrawoJazdy", v.prawo_jazdy )
 	end
 	for i = 0, 10 do
 		outputChatBox ( " ", source )
@@ -52,4 +53,24 @@ addEventHandler ( "Rejestracja:rozpocznij", root, function ( login, haslo, haslo
 	local uid = getUID()
 	local u = exports["fr-db"]:wykonajKwerende ( "INSERT INTO FR_Accounts ( Login, haslo, UID, x, y, z, portfel, skin, hp ) VALUES ( ?,?,?,?,?,?,?,?,? )", login, haslo, uid, -2620.03125, 2261.50562, 8.16675, 0, 0, 100 )
 	triggerClientEvent ( "Rejestracja:zakoncz", source )
+end)
+
+addEventHandler ( "onPlayerJoin", root, function ()
+	spawnPlayer ( source, -2620.01440, 2262.51392, 8.16689 )
+	fadeCamera ( source, true )
+end)
+
+
+addEventHandler ( "onPlayerQuit", root, function ()
+	local Cash = getPlayerMoney ( source )
+	local x,y,z = getElementPosition ( source )
+	local skin = getElementModel ( source )
+	local hp = getElementHealth ( source )
+	local prawo = getElementData ( source, "PrawoJazdy" )
+	if prawo == true then
+		prawko = "true"
+	else
+		prawko = "false"
+	end
+	local i = exports["fr-db"]:wykonajKwerende ( "UPDATE FR_Accounts SET portfel = ?, x = '?', y = '?', z = '?', skin = ?, hp = ?, prawo_jazdy = ? WHERE Login = ?", Cash, x, y, z, skin, hp, prawko, getPlayerName ( source ) )
 end)

@@ -162,6 +162,7 @@ addEventHandler ( "Logowanie:zakoncz", root, function ()
 		removeEventHandler ( "onClientRender", root, drawImageLogowanie )
 		removeEventHandler ( "onClientRender", root, drawLogo )
 		setTimer ( setCameraTarget, 2000, 1, source )
+		guiSetVisible ( informacja, false )
 	end
 end)
 
