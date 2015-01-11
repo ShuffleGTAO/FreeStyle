@@ -1,4 +1,0 @@
-<meta>
-<script src="server.lua"/>
-<export function="wykonajKwerende"/>
-</meta>
