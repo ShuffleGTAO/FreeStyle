@@ -1,0 +1,5 @@
+<meta>
+<script src="server.lua"/>
+<export function="wykonajKwerende"/>
+<export function="coreSpawnLicenseCar"/>
+</meta>

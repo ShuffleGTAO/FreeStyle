@@ -1,11 +1,4 @@
-﻿--[[
-$ author Shuffle
-$ copyright Shuffle
-$ link https://github.com/ShuffleGTAO/FreeStyle
-]]--
-
-
-mojeW,mojeH = 640, 480
+﻿mojeW,mojeH = 640, 480
 sW,sH = guiGetScreenSize()
 w, h = (sW/mojeW), (sH/mojeH)
 

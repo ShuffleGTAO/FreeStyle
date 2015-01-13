@@ -1,4 +1,4 @@
 <meta>
 <script src="server.lua"/>
-<export function="wykonajKwerende"/>
+<script src="client.lua" type="client"/>
 </meta>

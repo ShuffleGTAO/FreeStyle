@@ -1,13 +1,6 @@
-﻿--[[
-$ author Shuffle
-$ copyright Shuffle
-$ link https://github.com/ShuffleGTAO/FreeStyle
-]]--
-
-
-addEvent ( "Logowanie:rozpocznij", true )
+﻿addEvent ( "Logowanie:rozpocznij", true )
 addEventHandler ( "Logowanie:rozpocznij", root, function ( login, haslo )
-	local q = exports["fr-db"]:wykonajKwerende ( "SELECT * FROM FR_Accounts WHERE Login = ?", login )
+	local q = exports["fr-core"]:wykonajKwerende ( "SELECT * FROM FR_Accounts WHERE Login = ?", login )
 	if #q == 0 then
 		return triggerClientEvent ( "Logowanie:blad", source, "Konto nie istnieje w bazie danych" )
 	end
@@ -41,10 +34,11 @@ addEventHandler ( "Logowanie:rozpocznij", root, function ( login, haslo )
 		outputChatBox ( " ", source )
 	end
 	outputChatBox ( "Pomyślnie zalogowano. Grasz na serwerze stworzonym przez Shuffle. Miłej gry!", source, 0, 255, 0 )
+	setPlayerName ( source, login )
 end)
 
 local function getUID ()
-	local u = exports["fr-db"]:wykonajKwerende ( "SELECT * FROM FR_Accounts" )
+	local u = exports["fr-core"]:wykonajKwerende ( "SELECT * FROM FR_Accounts" )
 	for k,_ in ipairs ( u ) do
 		liczba = k + 1
 	end
@@ -57,12 +51,12 @@ end
 
 addEvent ( "Rejestracja:rozpocznij", true )
 addEventHandler ( "Rejestracja:rozpocznij", root, function ( login, haslo, haslo2 )
-	local u = exports["fr-db"]:wykonajKwerende ( "SELECT * FROM FR_Accounts WHERE Login = ?", login )
+	local u = exports["fr-core"]:wykonajKwerende ( "SELECT * FROM FR_Accounts WHERE Login = ?", login )
 	if #u == 1 then
 		return triggerClientEvent ( "Logowanie:blad", source, "Konto '"..login.."' już istnieje w bazie danych" )
 	end
 	local uid = getUID()
-	local u = exports["fr-db"]:wykonajKwerende ( "INSERT INTO FR_Accounts ( Login, haslo, UID, x, y, z, portfel, skin, hp ) VALUES ( ?,?,?,?,?,?,?,?,? )", login, haslo, uid, -2620.03125, 2261.50562, 8.16675, 0, 0, 100 )
+	local u = exports["fr-core"]:wykonajKwerende ( "INSERT INTO FR_Accounts ( Login, haslo, UID, x, y, z, portfel, skin, hp, prawo_jazdy ) VALUES ( ?,?,?,?,?,?,?,?,?,? )", login, haslo, uid, -2620.03125, 2261.50562, 8.16675, 0, 0, 100, "false" )
 	triggerClientEvent ( "Rejestracja:zakoncz", source )
 end)
 
@@ -77,11 +71,5 @@ addEventHandler ( "onPlayerQuit", root, function ()
 	local x,y,z = getElementPosition ( source )
 	local skin = getElementModel ( source )
 	local hp = getElementHealth ( source )
-	local prawo = getElementData ( source, "PrawoJazdy" )
-	if prawo == true then
-		prawko = "true"
-	else
-		prawko = "false"
-	end
-	local i = exports["fr-db"]:wykonajKwerende ( "UPDATE FR_Accounts SET portfel = ?, x = '?', y = '?', z = '?', skin = ?, hp = ?, prawo_jazdy = ? WHERE Login = ?", Cash, x, y, z, skin, hp, prawko, getPlayerName ( source ) )
+	local i = exports["fr-core"]:wykonajKwerende ( "UPDATE FR_Accounts SET portfel = ?, x = '?', y = '?', z = '?', skin = ?, hp = ? WHERE Login = ?", Cash, x, y, z, skin, hp, getPlayerName ( source ) )
 end)
